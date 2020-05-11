@@ -1,0 +1,130 @@
+Address Book Project made by Ayaam Choudhary(2K18CSUN01012) and Saksham Srivastav(2K18CSUN01034)
+Video Link : https://drive.google.com/file/d/1nDmGJeryxL64lq0jYF9HMdyXVy4hc0gS/view?usp=sharing
+
+Program Code:-
+
+print("----------Address Book System----------")
+print("------System made by Ayaam Choudhary & Saksham Srivastav------")
+
+## Add Address Function
+def addAddress():
+    idno = input("Enter your Unique ID No: ")
+    name = input("Enter your Name: ")
+    address = input("Enter your Address: ")
+    print("Entered information is:")
+    contact = [idno, \
+               name, \
+               address]
+    print(contact)
+    f = open("addressbook.txt", "a")
+    f.write(idno + ',' + name + ',' + address)
+    f.write("\n")
+    f.close()
+    a_file = open("addressbook.txt", "r")
+    list_of_lists = [(line.strip()).split() for line in a_file]
+    a_file.close()
+    c = sorted(list_of_lists, key=lambda x: x[0])
+    with open('address.txt', 'w') as f:
+        for item in c:
+            f.write("%s\n" % item)
+    print("------Address has been added------")
+    restart()
+    
+##Display Address Function
+def dispAddress():
+    s = input("Enter the Unique ID No of the Contact you want to View: ")
+    f = open("address.txt", "r")
+    for a in f:
+        if s in a:
+            print(a)
+            break
+    else:
+        print("------Contact does not Exist------")
+    restart()
+
+#Delete Address Function
+def delAddress():
+    b = input("Enter The Unique ID: ")
+    with open("addressbook.txt", "r+") as f:
+        new_f = f.readlines()
+        f.seek(0)
+        for line in new_f:
+            if b not in line:
+                f.write(line)
+        f.truncate()
+    with open("address.txt", "r+") as f:
+        new_f = f.readlines()
+        f.seek(0)
+        for line in new_f:
+            if b not in line:
+                f.write(line)
+        f.truncate()
+    print("------The contact has been Deleted------.")
+    restart()
+
+##Modify Address Function()
+def modAddress():
+    b = input("Enter The id No of contact which you want to Modify")
+    with open("addressbook.txt", "r+") as f:
+        new_f = f.readlines()
+        f.seek(0)
+        for line in new_f:
+            if b not in line:
+                f.write(line)
+        f.truncate()
+    with open("address.txt", "r+") as f:
+        new_f = f.readlines()
+        f.seek(0)
+        for line in new_f:
+            if b not in line:
+                f.write(line)
+        f.truncate()
+    idno = input("Enter your Unique ID No: ")
+    name = input("Enter your New Name: ")
+    address = input("Enter your New Address: ")
+    print("------Modified Information Is------:")
+    contact = [idno, \
+               name, \
+               address]
+    print(contact)
+    f = open("addressbook.txt", "a")
+    f.write(idno + ',' + name + ',' + address)
+    f.write("\n")
+    f.close()
+    a_file = open("addressbook.txt", "r")
+    list_of_lists = [(line.strip()).split() for line in a_file]
+    a_file.close()
+    c = sorted(list_of_lists, key=lambda x: x[0])
+    with open('address.txt', 'w') as f:
+        for item in c:
+            f.write("%s\n" % item)
+    restart()
+            
+def menu():
+    choice=input("Select your Choice: \n 1) Add contact \n 2) Delete contact \n 3) Modify current info \n 4) Search contacts: \n")
+    if choice == '1':
+        print("You have chosen to add a contact.")
+        addAddress()
+    elif choice == '2':
+        print("You have chosen to delete a contact.")
+        delAddress()
+    elif choice == '3':
+        print("You have chosen to modify an existing contact's info.")
+        modAddress()
+    elif choice == '4':
+        print("You have chosen to search for a specific contact.")
+        dispAddress()
+    else:
+        print("Not a valid command")
+        restart()
+    
+def restart():
+    userinput = input("Would you like to Restart the System? [y/n] ")
+    if userinput == 'y':
+        menu()
+    elif userinput == 'n':
+        print("------Thankyou For Using the System------")    
+        print("------System Exited------")
+menu()
+
+    
